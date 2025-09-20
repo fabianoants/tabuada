@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Tabuada</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="quiz-container">
+            <h1>Quiz de Tabuada</h1>
+            <p id="placar" class="hidden">Pontuação: 0</p>
+            <input type="text" id="nome-jogador" placeholder="Digite seu nome" maxlength="15">
+    
+            <p id="timer" class="hidden">Tempo: 60s</p>
+            <p id="pergunta" class="hidden">Qual é o resultado de ...?</p>
+            <p id="fim-jogo-mensagem" class="hidden"></p>
+            
+            <p id="feedback" class="hidden"></p>
+            
+            <div id="resposta-display" class="hidden"></div>
+    
+            <div id="botoes-resposta-container">
+                <button class="btn-resposta" value="1">1</button>
+                <button class="btn-resposta" value="2">2</button>
+                <button class="btn-resposta" value="3">3</button>
+                <button class="btn-resposta" value="4">4</button>
+                <button class="btn-resposta" value="5">5</button>
+                <button class="btn-resposta" value="6">6</button>
+                <button class="btn-resposta" value="7">7</button>
+                <button class="btn-resposta" value="8">8</button>
+                <button class="btn-resposta" value="9">9</button>
+                <button id="btn-limpar">Limpar</button>
+                <button class="btn-resposta" value="0">0</button>
+                <button id="btn-enviar">Verificar</button>
+            </div>
+    
+            <div class="botoes-container">
+                <button id="btn-iniciar">Começar Jogo</button>
+            </div>
+        </div>
+    
+        <div id="rank-container">
+            <h2>Top 5 Pontuacoes</h2>
+            <ul id="rank-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
