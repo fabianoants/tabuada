@@ -25,6 +25,9 @@ let top5Pontuacoes = [];
 let nomeJogador = '';
 let respostaAtual = '';
 
+// Variável para armazenar o histórico de perguntas
+const historicoPerguntasAnteriores = [];
+
 // Funções do Rank
 function carregarPontuacoes() {
     const pontuacoesSalvas = localStorage.getItem('top5Pontuacoes');
@@ -118,14 +121,28 @@ function iniciarTimer() {
 
 // Função para gerar uma nova pergunta
 function gerarPergunta() {
-    num1 = Math.floor(Math.random() * 8) + 2;
-    num2 = Math.floor(Math.random() * 8) + 2;
-    respostaCorreta = num1 * num2;
+    let perguntaAtual;
+    
+    // Gera uma nova pergunta até que ela não esteja no histórico
+    do {
+        num1 = Math.floor(Math.random() * 8) + 2;
+        num2 = Math.floor(Math.random() * 8) + 2;
+        respostaCorreta = num1 * num2;
+        perguntaAtual = `${num1} x ${num2}?`;
+    } while (historicoPerguntasAnteriores.includes(perguntaAtual));
+
+    // Adiciona a nova pergunta ao histórico
+    historicoPerguntasAnteriores.push(perguntaAtual);
+    
+    // Mantém o histórico com as 5 últimas perguntas
+    if (historicoPerguntasAnteriores.length > 5) {
+        historicoPerguntasAnteriores.shift(); // Remove o primeiro elemento
+    }
     
     respostaAtual = '';
     respostaDisplayEl.textContent = '';
 
-    perguntaEl.textContent = `${num1} x ${num2}?`;
+    perguntaEl.textContent = perguntaAtual;
     feedbackEl.textContent = '';
     feedbackEl.className = '';
     
