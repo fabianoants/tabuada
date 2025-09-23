@@ -70,10 +70,11 @@ h1 {
 }
 #botoes-resposta-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 33.33%);
     gap: 10px;
     margin-top: 20px;
     width: 100%;
+}
 }
 .btn-resposta, #btn-limpar {
     background-color: #6c757d;
@@ -143,4 +144,5 @@ h1 {
 }
 .hidden {
     display: none;
+
 }
