@@ -125,7 +125,7 @@ function gerarPergunta() {
     respostaAtual = '';
     respostaDisplayEl.textContent = '';
 
-    perguntaEl.textContent = `Qual é o resultado de ${num1} x ${num2}?`;
+    perguntaEl.textContent = `${num1} x ${num2}?`;
     feedbackEl.textContent = '';
     feedbackEl.className = '';
     
@@ -205,7 +205,7 @@ function fimDeJogo(vitoria) {
     fimJogoMensagemEl.classList.remove('hidden');
     
     // Mostra apenas o botão de Reiniciar Jogo
-    btnIniciar.textContent = 'Reiniciar Jogo';
+    btnIniciar.textContent = 'Reiniciar';
     btnIniciar.classList.remove('hidden');
     rankContainerEl.classList.remove('hidden');
     
@@ -219,13 +219,13 @@ function resetarJogo() {
     
     // Mostra elementos iniciais
     nomeInput.classList.remove('hidden');
-    btnIniciar.textContent = 'Começar Jogo';
+    btnIniciar.textContent = 'Começar';
 }
 
 
 // Adiciona os "ouvintes" de evento aos botões
 btnIniciar.addEventListener('click', () => {
-    if (btnIniciar.textContent === 'Começar Jogo') {
+    if (btnIniciar.textContent === 'Começar') {
         comecarJogo();
     } else {
         resetarJogo();

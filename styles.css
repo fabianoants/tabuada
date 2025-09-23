@@ -25,17 +25,17 @@ h1 {
     color: #4CAF50;
 }
 #pergunta, #fim-jogo-mensagem {
-    font-size: 1.8em;
+    font-size: 2.5em;
     margin: 20px 0;
     font-weight: bold;
 }
 #resposta-display {
     background-color: #eee;
     padding: 10px;
-    font-size: 1.5em;
+    font-size: 1.8em;
     border: 2px solid #ccc;
     border-radius: 5px;
-    width: 80%;
+    width: 25%;
     margin: 15px auto;
     min-height: 1.5em;
     text-align: center;
@@ -44,7 +44,7 @@ h1 {
 #nome-jogador {
     padding: 10px;
     font-size: 1.2em;
-    width: 80%;
+    width: 50%;
     border: 2px solid #ccc;
     border-radius: 5px;
     text-align: center;
@@ -59,7 +59,7 @@ h1 {
     background-color: #4CAF50;
     color: white;
     padding: 12px 25px;
-    font-size: 1.1em;
+    font-size: 1.5em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -69,7 +69,7 @@ h1 {
     background-color: #45a049;
 }
 #botoes-resposta-container {
-    /* REMOVA A PROPRIEDADE display: grid; DAQUI */
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-top: 20px;
@@ -78,7 +78,7 @@ h1 {
 .btn-resposta, #btn-limpar {
     background-color: #6c757d;
     color: white;
-    padding: 15px;
+    padding: 25px;
     font-size: 1.5em;
     border: none;
     border-radius: 5px;
@@ -119,11 +119,12 @@ h1 {
 }
 #rank-container {
     background-color: #fff;
+    text-align: center;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 500px;
+    max-width: 300px;
 }
 #rank-container h2 {
     color: #4CAF50;
