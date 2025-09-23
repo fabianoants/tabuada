@@ -80,7 +80,7 @@ function comecarJogo() {
     // Esconde elementos iniciais
     nomeInput.classList.add('hidden');
     fimJogoMensagemEl.classList.add('hidden');
-    btnIniciar.classList.add('hidden'); // <--- Linha adicionada
+    btnIniciar.classList.add('hidden');
     
     // Mostra elementos do jogo
     placarEl.classList.remove('hidden');
