@@ -134,8 +134,8 @@ function gerarPergunta() {
     // Adiciona a nova pergunta ao histórico
     historicoPerguntasAnteriores.push(perguntaAtual);
     
-    // Mantém o histórico com as 5 últimas perguntas
-    if (historicoPerguntasAnteriores.length > 5) {
+    // Mantém o histórico com as 15 últimas perguntas
+    if (historicoPerguntasAnteriores.length > 15) {
         historicoPerguntasAnteriores.shift(); // Remove o primeiro elemento
     }
     
