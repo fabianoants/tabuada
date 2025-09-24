@@ -1,64 +1,78 @@
+/* ---------------------------------
+  ESTILOS GERAIS - APARÊNCIA DE CALCULADORA
+  ---------------------------------
+*/
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #333;
+    color: #eee;
 }
 .main-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px;
+    padding: 20px 10px;
     min-height: 100vh;
     box-sizing: border-box;
 }
 .quiz-container {
-    background-color: #fff;
-    padding: 15px;
+    background-color: #555;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
     width: 95%;
     max-width: 500px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 h1 {
-    color: #4CAF50;
+    color: #eee;
     font-size: 1.8em;
     margin-top: 0;
 }
-#pergunta, #fim-jogo-mensagem {
+#pergunta-resposta-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+#pergunta {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #eee;
+    margin: 0;
+    text-align: right;
+    flex-grow: 1;
+}
+#fim-jogo-mensagem {
     font-size: 1.8em;
     margin: 10px 0;
     font-weight: bold;
+    color: #eee;
 }
 #resposta-display {
-    background-color: #eee;
-    padding: 5px;
-    font-size: 1.4em;
-    border: 2px solid #ccc;
+    background-color: #222;
+    color: #0f0;
+    padding: 10px;
+    font-size: 1.8em;
+    border: 2px solid #666;
     border-radius: 5px;
-    width: 25%;
-    margin: 8px auto;
-    min-height: 1.5em;
-    text-align: center;
+    min-height: 1.8em;
+    text-align: right;
     box-sizing: border-box;
-}
-#nome-jogador {
-    padding: 8px;
-    font-size: 1em;
+    font-family: 'Courier New', Courier, monospace;
     width: 50%;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    margin-bottom: 10px;
 }
-#select-tabuada {
+#nome-jogador, #select-tabuada {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
     padding: 8px;
     font-size: 1em;
-    width: 40%;
-    border: 2px solid #ccc;
+    width: 60%;
     border-radius: 5px;
     text-align: center;
     margin-bottom: 10px;
@@ -66,51 +80,73 @@ h1 {
 .botoes-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
+    margin-top: 15px;
 }
-#btn-iniciar, #btn-enviar {
+#btn-iniciar {
     background-color: #4CAF50;
     color: white;
-    padding: 8px 15px;
+    padding: 12px 25px;
     font-size: 1.1em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-#btn-iniciar:hover, #btn-enviar:hover {
+#btn-iniciar:hover {
     background-color: #45a049;
 }
 #botoes-resposta-container {
     display: grid;
-    grid-template-columns: repeat(3, 24%); /* Reduzimos a largura das colunas para 24% */
-    gap: 5px;
-    margin-top: 10px;
-    width: 100%;
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
 }
-.btn-resposta, #btn-limpar {
-    background-color: #6c757d;
-    color: white;
-    padding: 10px 8px;
-    font-size: 1.1em; /* Ajustamos o tamanho da fonte para 1.1em, igual ao botão "Verificar" */
+.btn-resposta, #btn-limpar, #btn-enviar {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 15px 10px;
+    font-size: 1.4em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.1s ease;
+    box-shadow: 0 2px 0 #b3b3b3;
 }
-.btn-resposta:hover, #btn-limpar:hover {
-    background-color: #5a6268;
+.btn-resposta:hover, #btn-limpar:hover, #btn-enviar:hover {
+    background-color: #d0d0d0;
+}
+.btn-resposta:active, #btn-limpar:active, #btn-enviar:active {
+    box-shadow: none;
+    transform: translateY(2px);
 }
 #btn-limpar {
-    background-color: #dc3545;
+    background-color: #f44336;
+    color: white;
+    box-shadow: 0 2px 0 #d32f2f;
 }
 #btn-limpar:hover {
     background-color: #c82333;
 }
+#btn-limpar:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+#btn-enviar {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 2px 0 #388e3c;
+}
+#btn-enviar:hover {
+    background-color: #45a049;
+}
+#btn-enviar:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
 #feedback {
     margin-top: 10px;
-    font-size: 0.9em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 #feedback.correto {
@@ -119,30 +155,31 @@ h1 {
 #feedback.incorreto {
     color: #f44336;
 }
+#placar, #timer, #label-tabuada {
+    color: #eee;
+}
 #placar {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 1em;
-    color: #555;
 }
 #timer {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 1.1em;
     font-weight: bold;
-    color: #2196F3;
 }
 #rank-container {
-    background-color: #fff;
+    background-color: #555;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     width: 95%;
-    max-width: 300px;
+    max-width: 350px;
 }
 #rank-container h2 {
-    color: #4CAF50;
+    color: #eee;
     font-size: 1.5em;
     margin-top: 0;
 }
@@ -153,10 +190,68 @@ h1 {
     font-size: 0.9em;
     font-weight: bold;
     text-align: center;
+    color: #eee;
 }
 #rank-list li {
     margin: 3px 0;
 }
 .hidden {
     display: none;
+}
+
+/* ---------------------------------
+  ESTILOS PARA COMPUTADORES E TELAS MAIORES
+  ---------------------------------
+*/
+@media (min-width: 768px) {
+    .quiz-container {
+        padding: 40px;
+        max-width: 500px;
+    }
+    h1 {
+        font-size: 2.5em;
+    }
+    #pergunta-resposta-container {
+        gap: 20px;
+    }
+    #pergunta {
+        font-size: 2.2em;
+    }
+    #fim-jogo-mensagem {
+        font-size: 2.2em;
+    }
+    #resposta-display {
+        font-size: 2.5em;
+    }
+    #nome-jogador, #select-tabuada {
+        font-size: 1.2em;
+        width: 50%;
+    }
+    #btn-iniciar {
+        padding: 15px 30px;
+        font-size: 1.4em;
+    }
+    #botoes-resposta-container {
+        gap: 15px;
+    }
+    .btn-resposta, #btn-limpar, #btn-enviar {
+        padding: 20px 15px;
+        font-size: 1.6em;
+    }
+    #feedback {
+        font-size: 1.5em;
+    }
+    #placar, #timer {
+        font-size: 1.2em;
+    }
+    #rank-container {
+        padding: 25px;
+        max-width: 400px;
+    }
+    #rank-container h2 {
+        font-size: 2em;
+    }
+    #rank-list {
+        font-size: 1.1em;
+    }
 }
