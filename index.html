@@ -13,6 +13,20 @@
             <h1>Quiz de Tabuada</h1>
             <p id="placar" class="hidden">Pontuação: 0</p>
             <input type="text" id="nome-jogador" placeholder="Digite seu nome" maxlength="15">
+            <br>
+            <label for="select-tabuada" id="label-tabuada">Escolha a Tabuada:</label>
+            <br>
+            <select id="select-tabuada">
+                <option value="aleatorio" selected>Aleatório</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
     
             <p id="timer" class="hidden">Tempo: 60s</p>
             <p id="pergunta" class="hidden">Qual é o resultado de ...?</p>
@@ -42,8 +56,7 @@
             </div>
         </div>
     
-        <div id="rank-container">
-            <h2>Melhores Pontuações</h2>
+        <div id="rank-container" class="hidden"> <h2>Melhores Pontuações</h2>
             <ul id="rank-list"></ul>
         </div>
     </div>

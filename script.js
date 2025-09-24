@@ -13,6 +13,8 @@ const placarEl = document.getElementById('placar');
 const timerEl = document.getElementById('timer');
 const rankContainerEl = document.getElementById('rank-container');
 const rankListEl = document.getElementById('rank-list');
+const selectTabuada = document.getElementById('select-tabuada');
+const labelTabuada = document.getElementById('label-tabuada'); 
 
 // Variáveis para o quiz e o temporizador
 let num1, num2, respostaCorreta;
@@ -24,6 +26,7 @@ let timerInterval;
 let top5Pontuacoes = [];
 let nomeJogador = '';
 let respostaAtual = '';
+let tabuadaSelecionada;
 
 // Variável para armazenar o histórico de perguntas
 const historicoPerguntasAnteriores = [];
@@ -73,6 +76,7 @@ function handleBotaoRespostaClick(event) {
 // Função para iniciar o jogo (chamada pelo botão "Começar")
 function comecarJogo() {
     nomeJogador = nomeInput.value.trim();
+    tabuadaSelecionada = selectTabuada.value;
 
     if (nomeJogador === '') {
         alert('Por favor, digite seu nome para começar!');
@@ -82,8 +86,11 @@ function comecarJogo() {
     
     // Esconde elementos iniciais
     nomeInput.classList.add('hidden');
+    selectTabuada.classList.add('hidden');
+    labelTabuada.classList.add('hidden');
     fimJogoMensagemEl.classList.add('hidden');
     btnIniciar.classList.add('hidden');
+    rankContainerEl.classList.add('hidden'); // Esconde o rank ao começar
     
     // Mostra elementos do jogo
     placarEl.classList.remove('hidden');
@@ -122,11 +129,24 @@ function iniciarTimer() {
 // Função para gerar uma nova pergunta
 function gerarPergunta() {
     let perguntaAtual;
+    let limiteHistorico;
+
+    // Define o limite do histórico de perguntas com base na seleção
+    if (tabuadaSelecionada === 'aleatorio') {
+        limiteHistorico = 15;
+    } else {
+        limiteHistorico = 4;
+    }
     
-    // Gera uma nova pergunta até que ela não esteja no histórico
+    // Lógica para gerar perguntas baseada na seleção do usuário
     do {
-        num1 = Math.floor(Math.random() * 8) + 2;
-        num2 = Math.floor(Math.random() * 8) + 2;
+        if (tabuadaSelecionada === 'aleatorio') {
+            num1 = Math.floor(Math.random() * 8) + 2;
+            num2 = Math.floor(Math.random() * 8) + 2;
+        } else {
+            num1 = parseInt(tabuadaSelecionada);
+            num2 = Math.floor(Math.random() * 8) + 2;
+        }
         respostaCorreta = num1 * num2;
         perguntaAtual = `${num1} x ${num2}?`;
     } while (historicoPerguntasAnteriores.includes(perguntaAtual));
@@ -134,8 +154,8 @@ function gerarPergunta() {
     // Adiciona a nova pergunta ao histórico
     historicoPerguntasAnteriores.push(perguntaAtual);
     
-    // Mantém o histórico com as 15 últimas perguntas
-    if (historicoPerguntasAnteriores.length > 15) {
+    // Mantém o histórico com o limite definido
+    if (historicoPerguntasAnteriores.length > limiteHistorico) {
         historicoPerguntasAnteriores.shift(); // Remove o primeiro elemento
     }
     
@@ -221,10 +241,10 @@ function fimDeJogo(vitoria) {
     }
     fimJogoMensagemEl.classList.remove('hidden');
     
-    // Mostra apenas o botão de Reiniciar Jogo
+    // Mostra o botão de Reiniciar Jogo e o rank
     btnIniciar.textContent = 'Reiniciar';
     btnIniciar.classList.remove('hidden');
-    rankContainerEl.classList.remove('hidden');
+    rankContainerEl.classList.remove('hidden'); // Mostra o rank no fim do jogo
     
     mostrarRank();
 }
@@ -236,6 +256,8 @@ function resetarJogo() {
     
     // Mostra elementos iniciais
     nomeInput.classList.remove('hidden');
+    selectTabuada.classList.remove('hidden');
+    labelTabuada.classList.remove('hidden');
     btnIniciar.textContent = 'Começar';
 }
 
