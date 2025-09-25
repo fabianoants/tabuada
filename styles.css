@@ -1,24 +1,23 @@
-/* ---------------------------------
-  ESTILOS GERAIS - APARÊNCIA DE CALCULADORA
-  ---------------------------------
-*/
+/* =========================================================================
+   ESTILOS GERAIS DO JOGO
+   ========================================================================= */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #333;
-    color: #eee;
+    background-color: #333; /* Fundo escuro */
+    color: #eee; /* Texto claro */
 }
 .main-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 20px 10px;
+    padding: 20px 20px;
     min-height: 100vh;
     box-sizing: border-box;
 }
 .quiz-container {
-    background-color: #555;
+    background-color: #555; /* Cor de fundo principal do quiz */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
@@ -29,33 +28,56 @@ body {
 }
 h1 {
     color: #eee;
-    font-size: 1.8em;
+    font-size: 3em;
     margin-top: 0;
 }
-#pergunta-resposta-container {
+#game-display-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.left-column {
+    flex: 1;
+    text-align: left;
+    height: 120px;
+    position: relative;
+}
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 #pergunta {
-    font-size: 1.8em;
+    font-size: 3em;
     font-weight: bold;
     color: #eee;
     margin: 0;
-    text-align: right;
-    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: left;
 }
-#fim-jogo-mensagem {
-    font-size: 1.8em;
-    margin: 10px 0;
-    font-weight: bold;
+#placar {
     color: #eee;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    text-align: right;
+}
+#timer {
+    color: #eee;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    text-align: right;
 }
 #resposta-display {
     background-color: #222;
-    color: #0f0;
+    color: #0f0; /* Cor do texto da resposta */
     padding: 10px;
     font-size: 1.8em;
     border: 2px solid #666;
@@ -63,38 +85,90 @@ h1 {
     min-height: 1.8em;
     text-align: right;
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-    width: 50%;
+    font-family: 'Courier New', Courier, monospace; /* Fonte estilo calculadora */
+    width: 100%;
+    margin-top: 10px;
+    transition: border-color 0.2s ease;
 }
-#nome-jogador, #select-tabuada {
-    background-color: #f0f0f0;
-    color: #333;
-    border: none;
-    padding: 8px;
-    font-size: 1em;
-    width: 60%;
+#nome-jogador {
+    background-color: #222;
+    color: #0f0;
+    border: 2px solid #666;
+    padding: 10px;
+    font-size: 1.8em;
+    width: 100%;
     border-radius: 5px;
-    text-align: center;
+    text-align: right;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
     margin-bottom: 10px;
+}
+#label-tabuada {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+#botoes-tabuada-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+.btn-tabuada {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 15px 10px;
+    font-size: 1.4em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    box-shadow: 0 2px 0 #b3b3b3;
+}
+.btn-tabuada:hover {
+    background-color: #d0d0d0;
+}
+.btn-tabuada:active {
+    box-shadow: none;
+    transform: translateY(2px);
+}
+.btn-tabuada.selecionado {
+    background-color: #4CAF50; /* Cor do botão selecionado */
+    color: white;
+    box-shadow: 0 2px 0 #388e3c;
+}
+.btn-tabuada.selecionado:hover {
+    background-color: #45a049;
+}
+.btn-tabuada.selecionado:active {
+    box-shadow: none;
+    transform: translateY(2px);
 }
 .botoes-container {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 15px;
+    width: 100%;
 }
-#btn-iniciar {
+#btn-iniciar, #btn-reiniciar {
     background-color: #4CAF50;
     color: white;
-    padding: 12px 25px;
-    font-size: 1.1em;
+    padding: 15px 10px;
+    font-size: 1.4em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.1s ease;
+    box-shadow: 0 2px 0 #388e3c;
+    width: 100%;
 }
-#btn-iniciar:hover {
+#btn-iniciar:hover, #btn-reiniciar:hover {
     background-color: #45a049;
+}
+#btn-iniciar:active, #btn-reiniciar:active {
+    box-shadow: none;
+    transform: translateY(2px);
 }
 #botoes-resposta-container {
     display: grid;
@@ -121,7 +195,7 @@ h1 {
     transform: translateY(2px);
 }
 #btn-limpar {
-    background-color: #f44336;
+    background-color: #f44336; /* Cor do botão 'Limpar' */
     color: white;
     box-shadow: 0 2px 0 #d32f2f;
 }
@@ -133,7 +207,7 @@ h1 {
     transform: translateY(2px);
 }
 #btn-enviar {
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* Cor do botão 'Enviar' */
     color: white;
     box-shadow: 0 2px 0 #388e3c;
 }
@@ -150,23 +224,14 @@ h1 {
     font-weight: bold;
 }
 #feedback.correto {
-    color: #4CAF50;
+    color: #4CAF50; /* Cor para feedback correto */
 }
 #feedback.incorreto {
-    color: #f44336;
+    color: #f44336; /* Cor para feedback incorreto */
 }
-#placar, #timer, #label-tabuada {
-    color: #eee;
-}
-#placar {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1em;
-}
-#timer {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1.1em;
+#fim-jogo-mensagem {
+    margin-top: 10px;
+    font-size: 1.8em;
     font-weight: bold;
 }
 #rank-container {
@@ -177,59 +242,135 @@ h1 {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     width: 95%;
     max-width: 350px;
+    margin-top: 15px;
 }
 #rank-container h2 {
-    color: #eee;
-    font-size: 1.5em;
+    font-size: 1.8em;
     margin-top: 0;
 }
 #rank-list {
     list-style-type: none;
     list-style-position: inside;
     padding-left: 0;
-    font-size: 0.9em;
+    font-size: 1.4em;
     font-weight: bold;
     text-align: center;
     color: #eee;
 }
 #rank-list li {
-    margin: 3px 0;
-}
-.hidden {
-    display: none;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    box-shadow: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ---------------------------------
-  ESTILOS PARA COMPUTADORES E TELAS MAIORES
-  ---------------------------------
-*/
+/* --- ESTILOS PARA OS TOP 3 DO RANKING --- */
+.rank-gold {
+    background-color: #FFD700 !important; /* Dourado */
+    color: #333 !important; /* Texto escuro para contraste */
+    box-shadow: 0 2px 5px rgba(255, 215, 0, 0.5);
+}
+.rank-silver {
+    background-color: #C0C0C0 !important; /* Prateado */
+    color: #333 !important; /* Texto escuro para contraste */
+    box-shadow: 0 2px 5px rgba(192, 192, 192, 0.5);
+}
+.rank-bronze {
+    background-color: #CD7F32 !important; /* Bronze */
+    color: #eee !important; /* Texto claro para contraste */
+    box-shadow: 0 2px 5px rgba(205, 127, 50, 0.5);
+}
+
+.hidden {
+    display: none !important; /* Esconde elementos */
+}
+/* --- ANIMAÇÕES --- */
+@keyframes flashGreen {
+    0% { border-color: #666; }
+    50% { border-color: #4CAF50; }
+    100% { border-color: #666; }
+}
+@keyframes flashRed {
+    0% { border-color: #666; }
+    50% { border-color: #f44336; }
+    100% { border-color: #666; }
+}
+@keyframes comboEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+.flash-green {
+    animation: flashGreen 0.5s ease; /* Aplica a animação verde */
+}
+.flash-red {
+    animation: flashRed 0.5s ease; /* Aplica a animação vermelha */
+}
+.combo-score {
+    animation: comboEffect 0.5s ease; /* Aplica a animação no placar */
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* =========================================================================
+   ESTILOS PARA TELAS MAIORES (COMPUTADOR)
+   ========================================================================= */
 @media (min-width: 768px) {
     .quiz-container {
         padding: 40px;
         max-width: 500px;
     }
     h1 {
-        font-size: 2.5em;
+        font-size: 4em;
     }
-    #pergunta-resposta-container {
-        gap: 20px;
+    #game-display-container {
+        align-items: center;
+    }
+    .left-column {
+        height: 150px;
     }
     #pergunta {
-        font-size: 2.2em;
+        font-size: 4em;
     }
-    #fim-jogo-mensagem {
-        font-size: 2.2em;
+    #placar {
+        font-size: 1.8em;
+    }
+    #timer {
+        font-size: 1.5em;
     }
     #resposta-display {
         font-size: 2.5em;
     }
-    #nome-jogador, #select-tabuada {
-        font-size: 1.2em;
-        width: 50%;
+    #fim-jogo-mensagem {
+        font-size: 2.8em;
     }
-    #btn-iniciar {
-        padding: 15px 30px;
-        font-size: 1.4em;
+    #nome-jogador {
+        font-size: 2.5em;
+        width: 100%;
+        padding: 10px;
+    }
+    #label-tabuada {
+        font-size: 1.5em;
+    }
+    #botoes-tabuada-container {
+        gap: 15px;
+    }
+    .btn-tabuada {
+        padding: 20px 15px;
+        font-size: 1.6em;
+    }
+    .botoes-container {
+        margin-top: 20px;
+    }
+    #btn-iniciar, #btn-reiniciar {
+        padding: 20px 15px;
+        font-size: 1.6em;
+        width: 100%;
     }
     #botoes-resposta-container {
         gap: 15px;
@@ -241,17 +382,18 @@ h1 {
     #feedback {
         font-size: 1.5em;
     }
-    #placar, #timer {
-        font-size: 1.2em;
-    }
     #rank-container {
         padding: 25px;
         max-width: 400px;
     }
     #rank-container h2 {
-        font-size: 2em;
+        font-size: 2.8em;
     }
     #rank-list {
-        font-size: 1.1em;
+        font-size: 1.8em; /* Tamanho do texto do rank em telas grandes */
+    }
+    #rank-list li {
+        margin: 8px 0;
+        padding: 8px 15px;
     }
 }

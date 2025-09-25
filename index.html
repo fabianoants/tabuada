@@ -5,41 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Tabuada</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon"> <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
     <div class="main-container">
         <div class="quiz-container">
-            <h1 id="titulo-quiz">Quiz de Tabuada</h1>
-            <p id="placar" class="hidden">Pontuação: 0</p>
-            <input type="text" id="nome-jogador" placeholder="Digite seu nome" maxlength="15">
-            <br>
-            <label for="select-tabuada" id="label-tabuada">Escolha a Tabuada:</label>
-            <br>
-            <select id="select-tabuada">
-                <option value="aleatorio" selected>Todas</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-            </select>
-    
-            <p id="timer" class="hidden">Tempo: 60s</p>
+            <h1 id="titulo-quiz">Quiz Tabuada</h1>
             
-            <div id="pergunta-resposta-container">
-                <p id="pergunta">Qual é o resultado de ...?</p>
-                <div id="resposta-display"></div>
+            <div id="inicio-container">
+                <input type="text" id="nome-jogador" placeholder="Digite seu nome" maxlength="15">
+                <br>
+                <p id="label-tabuada">Escolha a Tabuada:</p>
+                <div id="botoes-tabuada-container">
+                    <button class="btn-tabuada" data-value="aleatorio">Todas</button>
+                    <button class="btn-tabuada" data-value="2">2</button>
+                    <button class="btn-tabuada" data-value="3">3</button>
+                    <button class="btn-tabuada" data-value="4">4</button>
+                    <button class="btn-tabuada" data-value="5">5</button>
+                    <button class="btn-tabuada" data-value="6">6</button>
+                    <button class="btn-tabuada" data-value="7">7</button>
+                    <button class="btn-tabuada" data-value="8">8</button>
+                    <button class="btn-tabuada" data-value="9">9</button>
+                </div>
+                <div class="botoes-container">
+                    <button id="btn-iniciar">Começar</button>
+                </div>
+            </div>
+    
+            <div id="game-display-container" class="hidden">
+                <div class="left-column">
+                    <p id="feedback" class="hidden"></p>
+                    <p id="pergunta">Qual é o resultado de ...?</p>
+                </div>
+                <div class="right-column">
+                    <p id="placar" class="hidden">Pontuação: <span id="pontuacao-numero">0</span></p>
+                    <p id="timer" class="hidden">Tempo: 60s</p>
+                    <div id="resposta-display"></div>
+                </div>
             </div>
             
             <p id="fim-jogo-mensagem" class="hidden"></p>
-            <p id="feedback" class="hidden"></p>
+            <button id="btn-reiniciar" class="hidden">Reiniciar</button>
             
-            <div id="botoes-resposta-container">
+            <div id="botoes-resposta-container" class="hidden">
                 <button class="btn-resposta" value="1">1</button>
                 <button class="btn-resposta" value="2">2</button>
                 <button class="btn-resposta" value="3">3</button>
@@ -48,14 +57,10 @@
                 <button class="btn-resposta" value="6">6</button>
                 <button class="btn-resposta" value="7">7</button>
                 <button class="btn-resposta" value="8">8</button>
-                <button class="btn-resposta" value="9">9</option>
+                <button class="btn-resposta" value="9">9</button>
                 <button id="btn-limpar">Limpar</button>
                 <button class="btn-resposta" value="0">0</button>
                 <button id="btn-enviar">Verificar</button>
-            </div>
-    
-            <div class="botoes-container">
-                <button id="btn-iniciar">Começar</button>
             </div>
         </div>
     
