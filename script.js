@@ -47,39 +47,61 @@ let respostaAtual = ''; // Resposta que o jogador está digitando.
 let tabuadaSelecionada = null;
 const historicoPerguntasAnteriores = []; // Evita repetição de perguntas recentes.
 
+// A URL da sua API no Vercel - MUITO IMPORTANTE: SUBSTITUA ESTA URL PELA SUA REAL.
+const URL_API = 'https://tabuada-bay.vercel.app/api/ranking';
+
 
 // =========================================================================
-// FUNÇÕES DE GERENCIAMENTO DO RANKING
+// FUNÇÕES DE GERENCIAMENTO DO RANKING ONLINE
 // =========================================================================
 
-// Carrega pontuações salvas no armazenamento local do navegador.
-function carregarPontuacoes() {
-    const pontuacoesSalvas = localStorage.getItem('top5Pontuacoes');
-    if (pontuacoesSalvas) {
-        top5Pontuacoes = JSON.parse(pontuacoesSalvas);
-    }
+// Função para salvar a pontuação online, enviando-a para o servidor.
+function salvarPontuacaoOnline(novaPontuacao, nome) {
+    fetch(URL_API, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nome: nome, pontuacao: novaPontuacao }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Sucesso:', data.mensagem);
+        console.log('Ranking atualizado:', data.ranking_atualizado);
+        mostrarRank(data.ranking_atualizado);
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+        alert('Não foi possível salvar a pontuação. Tente novamente.');
+        // Mostra o ranking mesmo com erro para não travar o jogo
+        carregarRankingOnline();
+    });
 }
 
-// Salva as pontuações no armazenamento local.
-function salvarPontuacoes() {
-    localStorage.setItem('top5Pontuacoes', JSON.stringify(top5Pontuacoes));
+// Função para carregar o ranking online, buscando-o do servidor.
+function carregarRankingOnline() {
+    fetch(URL_API)
+    .then(response => response.json())
+    .then(data => {
+        console.log('Ranking carregado:', data);
+        mostrarRank(data);
+    })
+    .catch((error) => {
+        console.error('Erro ao carregar o ranking:', error);
+        const li = document.createElement('li');
+        li.textContent = 'Não foi possível carregar o ranking online.';
+        rankListEl.appendChild(li);
+    });
 }
 
-// Adiciona uma nova pontuação ao ranking e a ordena.
-function atualizarRank(novaPontuacao, nome) {
-    top5Pontuacoes.push({ pontuacao: novaPontuacao, nome: nome });
-    top5Pontuacoes.sort((a, b) => b.pontuacao - a.pontuacao);
-    top5Pontuacoes = top5Pontuacoes.slice(0, 5);
-    salvarPontuacoes();
-}
-
-// Exibe a lista de ranking na tela.
-function mostrarRank() {
+// Exibe a lista de ranking na tela, recebendo os dados diretamente da API.
+function mostrarRank(rankData) {
     rankListEl.innerHTML = '';
-    if (top5Pontuacoes.length > 0) {
-        top5Pontuacoes.forEach((item, index) => {
+    if (rankData && rankData.length > 0) {
+        rankData.forEach((item, index) => {
             const li = document.createElement('li');
             li.textContent = `${index + 1}º: ${item.nome} - ${item.pontuacao} pontos`;
+            
             // Adiciona classes para os 3 primeiros colocados.
             if (index === 0) {
                 li.classList.add('rank-gold');
@@ -261,7 +283,7 @@ function fimDeJogo(vitoria) {
     clearInterval(timerInterval); // Para o temporizador.
 
     if (nomeJogador) {
-        atualizarRank(pontuacao, nomeJogador); // Salva a pontuação.
+        salvarPontuacaoOnline(pontuacao, nomeJogador); // Salva a pontuação ONLINE.
     }
     
     // Esconde a tela do jogo e mostra a tela de fim de jogo.
@@ -277,7 +299,7 @@ function fimDeJogo(vitoria) {
     botoesTabuada.forEach(btn => btn.classList.remove('selecionado'));
     tabuadaSelecionada = null;
     
-    mostrarRank(); // Exibe o ranking.
+    // O ranking será carregado e exibido pela função salvarPontuacaoOnline()
 }
 
 // Função para resetar o jogo para o estado inicial.
@@ -321,6 +343,5 @@ nomeInput.addEventListener('input', () => {
 btnIniciar.addEventListener('click', comecarJogo);
 btnReiniciar.addEventListener('click', resetarJogo);
 
-// Executa funções iniciais ao carregar a página.
-carregarPontuacoes();
-mostrarRank();
+// Executa a função para carregar o ranking ao iniciar a página.
+carregarRankingOnline();
