@@ -1,10 +1,8 @@
 import os
 import json
 from pymongo import MongoClient
-import urllib.parse
-from http.server import BaseHTTPRequestHandler
 
-# Define os cabeçalhos CORS para permitir acesso de qualquer origem
+# Define os cabeçalhos CORS
 headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -16,19 +14,15 @@ def handler(request):
     # Trata requisições OPTIONS do navegador (pré-voo CORS)
     if request.method == "OPTIONS":
         return "", 200, headers
-    
+
     try:
-        # Pega a string de conexão das variáveis de ambiente do Vercel
         mongo_uri = os.environ.get("MONGO_URI")
 
-        # Conecta ao MongoDB Atlas
         client = MongoClient(mongo_uri)
-        db = client['pontuacaoDados']
+        db = client['pontuacaodados']
         ranking_collection = db['ranking']
 
-        # Trata requisições POST
         if request.method == "POST":
-            # Salva uma nova pontuação
             data = json.loads(request.body)
             nome = data.get('nome')
             pontuacao = int(data.get('pontuacao'))
@@ -38,23 +32,19 @@ def handler(request):
                 return json.dumps({"mensagem": "Pontuação salva com sucesso!"}), 200, headers
             return json.dumps({"erro": "Dados inválidos"}), 400, headers
 
-        # Trata requisições GET
         elif request.method == "GET":
-            # Carrega o ranking
             top_5_results = ranking_collection.find().sort("pontuacao", -1).limit(5)
             top_5 = [
                 {'nome': doc['nome'], 'pontuacao': doc['pontuacao']}
                 for doc in top_5_results
             ]
             return json.dumps(top_5), 200, headers
-        
-        # Trata métodos não suportados
+
         else:
             return json.dumps({"erro": "Método não permitido"}), 405, headers
-    
+
     except Exception as e:
-        # Captura qualquer erro e imprime um rastreamento detalhado nos logs do Vercel
         import traceback
-        traceback.print_exc() # Isso irá mostrar o erro exato nos logs do Vercel
+        traceback.print_exc()
         print(f"Erro na função: {e}")
         return json.dumps({"erro": "Erro interno do servidor"}), 500, headers
