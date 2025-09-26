@@ -1,6 +1,8 @@
 import os
 import json
 from pymongo import MongoClient
+import urllib.parse
+from http.server import BaseHTTPRequestHandler
 
 # Define os cabeçalhos CORS para permitir acesso de qualquer origem
 headers = {
@@ -14,7 +16,7 @@ def handler(request):
     # Trata requisições OPTIONS do navegador (pré-voo CORS)
     if request.method == "OPTIONS":
         return "", 200, headers
-        
+    
     try:
         # Pega a string de conexão das variáveis de ambiente do Vercel
         mongo_uri = os.environ.get("MONGO_URI")
@@ -24,6 +26,7 @@ def handler(request):
         db = client['pontuacaoDados']
         ranking_collection = db['ranking']
 
+        # Trata requisições POST
         if request.method == "POST":
             # Salva uma nova pontuação
             data = json.loads(request.body)
@@ -35,6 +38,7 @@ def handler(request):
                 return json.dumps({"mensagem": "Pontuação salva com sucesso!"}), 200, headers
             return json.dumps({"erro": "Dados inválidos"}), 400, headers
 
+        # Trata requisições GET
         elif request.method == "GET":
             # Carrega o ranking
             top_5_results = ranking_collection.find().sort("pontuacao", -1).limit(5)
@@ -44,10 +48,13 @@ def handler(request):
             ]
             return json.dumps(top_5), 200, headers
         
+        # Trata métodos não suportados
         else:
             return json.dumps({"erro": "Método não permitido"}), 405, headers
     
     except Exception as e:
-        # Captura qualquer erro e o exibe no log do Vercel
+        # Captura qualquer erro e imprime um rastreamento detalhado nos logs do Vercel
+        import traceback
+        traceback.print_exc() # Isso irá mostrar o erro exato nos logs do Vercel
         print(f"Erro na função: {e}")
-        return json.dumps({"erro": f"Erro interno: {e}"}), 500, headers
+        return json.dumps({"erro": "Erro interno do servidor"}), 500, headers
