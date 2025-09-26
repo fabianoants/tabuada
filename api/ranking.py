@@ -1,7 +1,6 @@
 import os
 import json
 from pymongo import MongoClient
-import urllib.parse
 
 # Define os cabeçalhos CORS para permitir acesso de qualquer origem
 headers = {
