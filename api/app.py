@@ -12,7 +12,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 try:
     # Conecta ao MongoDB Atlas
     client = MongoClient(mongo_uri)
-    db = client['Cluster0']
+    db = client['fabianoantunes93_db_user']
     ranking_collection = db['ranking']
 except Exception as e:
     ranking_collection = None
