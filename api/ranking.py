@@ -3,7 +3,6 @@ import json
 from pymongo import MongoClient
 from bson import json_util
 
-# Define os cabeçalhos CORS
 headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -12,18 +11,15 @@ headers = {
 }
 
 def handler(request):
-    # Trata requisições OPTIONS do navegador (pré-voo CORS)
     if request.method == "OPTIONS":
         return "", 200, headers
-    
+
     try:
-        # Pega a string de conexão das variáveis de ambiente do Vercel
         mongo_uri = os.environ.get("MONGODB_URI")
 
         if not mongo_uri:
-            return json.dumps({"erro": "Variável MONGODB_URI não definida"}), 500, headers
+            return json.dumps({"erro": "Variável MONGO_URI não definida"}), 500, headers
 
-        # Conecta ao MongoDB Atlas
         client = MongoClient(mongo_uri)
         db = client['seu_banco_de_dados']
         ranking_collection = db['ranking']
@@ -40,13 +36,12 @@ def handler(request):
 
         elif request.method == "GET":
             top_5_results = ranking_collection.find().sort("pontuacao", -1).limit(5)
-            # Usa json_util para garantir que o resultado seja serializável
             ranking_json = json.loads(json_util.dumps(top_5_results))
             return json.dumps(ranking_json), 200, headers
-        
+
         else:
             return json.dumps({"erro": "Método não permitido"}), 405, headers
-    
+
     except Exception as e:
         import traceback
         traceback.print_exc()
