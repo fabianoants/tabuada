@@ -48,7 +48,7 @@ let tabuadaSelecionada = null;
 const historicoPerguntasAnteriores = []; // Evita repetição de perguntas recentes.
 
 // A URL da sua API no Vercel - MUITO IMPORTANTE: SUBSTITUA ESTA URL PELA SUA REAL.
-const URL_API = 'https://tabuada-bay.vercel.app/api/ranking.py';
+const URL_API = 'https://tabuada-bay.vercel.app/api/ranking';
 
 
 // =========================================================================
