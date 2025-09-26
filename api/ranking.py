@@ -16,7 +16,7 @@ def handler(request):
         return "", 200, headers
 
     try:
-        mongo_uri = os.environ.get("MONGO_URI")
+        mongo_uri = os.environ.get("MONGODB_URI")
 
         client = MongoClient(mongo_uri)
         db = client['pontuacaodados']
