@@ -3,7 +3,19 @@ import json
 from pymongo import MongoClient
 import urllib.parse
 
+# Define os cabeçalhos CORS para permitir acesso de qualquer origem
+headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
+}
+
 def handler(request):
+    # Trata requisições OPTIONS do navegador (pré-voo CORS)
+    if request.method == "OPTIONS":
+        return "", 200, headers
+        
     try:
         # Pega a string de conexão das variáveis de ambiente do Vercel
         mongo_uri = os.environ.get("MONGO_URI")
@@ -21,8 +33,8 @@ def handler(request):
 
             if nome and pontuacao is not None:
                 ranking_collection.insert_one({'nome': nome, 'pontuacao': pontuacao})
-                return json.dumps({"mensagem": "Pontuação salva com sucesso!"}), 200
-            return json.dumps({"erro": "Dados inválidos"}), 400
+                return json.dumps({"mensagem": "Pontuação salva com sucesso!"}), 200, headers
+            return json.dumps({"erro": "Dados inválidos"}), 400, headers
 
         elif request.method == "GET":
             # Carrega o ranking
@@ -31,12 +43,12 @@ def handler(request):
                 {'nome': doc['nome'], 'pontuacao': doc['pontuacao']}
                 for doc in top_5_results
             ]
-            return json.dumps(top_5), 200
+            return json.dumps(top_5), 200, headers
         
         else:
-            return json.dumps({"erro": "Método não permitido"}), 405
+            return json.dumps({"erro": "Método não permitido"}), 405, headers
     
     except Exception as e:
         # Captura qualquer erro e o exibe no log do Vercel
         print(f"Erro na função: {e}")
-        return json.dumps({"erro": f"Erro interno: {e}"}), 500
+        return json.dumps({"erro": f"Erro interno: {e}"}), 500, headers
