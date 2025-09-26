@@ -344,4 +344,5 @@ btnIniciar.addEventListener('click', comecarJogo);
 btnReiniciar.addEventListener('click', resetarJogo);
 
 // Executa a função para carregar o ranking ao iniciar a página.
+
 carregarRankingOnline();
