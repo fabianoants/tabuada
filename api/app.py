@@ -9,15 +9,14 @@ CORS(app)
 # Pega a string de conexão das variáveis de ambiente do Vercel
 mongo_uri = os.environ.get("MONGO_URI")
 
-# Conecta ao MongoDB Atlas
 try:
+    # Conecta ao MongoDB Atlas
     client = MongoClient(mongo_uri)
-    db = client['seu_banco_de_dados']
+    db = client['Cluster0']
     ranking_collection = db['ranking']
 except Exception as e:
-    # Se a conexão falhar, retorna um erro para que você possa ver nos logs
-    print(f"Erro de conexão com o MongoDB: {e}")
     ranking_collection = None
+    print(f"Erro de conexão com o MongoDB: {e}")
 
 # Rota para salvar uma nova pontuação
 @app.route('/api/ranking', methods=['POST'])
