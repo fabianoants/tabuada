@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 def handler(request):
     try:
-        mongo_uri = os.environ.get("MONGO_URI")
+        mongo_uri = os.environ.get("MONGODB_URI")
         client = MongoClient(mongo_uri)
         client.admin.command('ping') # Tenta pingar o banco de dados
         return json.dumps({"status": "Conexao com o MongoDB Atlas foi um sucesso!"}), 200
