@@ -1,5 +1,4 @@
 const { MongoClient } = require('mongodb');
-const { VercelRequest, VercelResponse } = require('@vercel/node');
 
 module.exports = async (request, response) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
