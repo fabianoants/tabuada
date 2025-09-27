@@ -290,33 +290,25 @@ h1 {
     display: none !important; /* Esconde elementos */
 }
 /* --- ANIMAÇÕES --- */
-@keyframes flashGreen {
-    0% { border-color: #666; }
-    50% { border-color: #4CAF50; }
-    100% { border-color: #666; }
+@keyframes flash-red {
+    0% { color: #eee; transform: scale(1); }
+    50% { color: red; transform: scale(1.1); }
+    100% { color: #eee; transform: scale(1); }
 }
-@keyframes flashRed {
-    0% { border-color: #666; }
-    50% { border-color: #f44336; }
-    100% { border-color: #666; }
+@keyframes flash-green-score {
+    0% { color: #eee; transform: scale(1); }
+    50% { color: #4CAF50; transform: scale(1.1); }
+    100% { color: #eee; transform: scale(1); }
 }
-@keyframes comboEffect {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-.flash-green {
-    animation: flashGreen 0.5s ease; /* Aplica a animação verde */
-}
+
 .flash-red {
-    animation: flashRed 0.5s ease; /* Aplica a animação vermelha */
+    animation: flash-red 0.5s ease-in-out;
 }
 .combo-score {
-    animation: comboEffect 0.5s ease; /* Aplica a animação no placar */
+    animation: flash-green-score 0.5s ease-in-out; /* Aplica a animação no placar */
     display: inline-block;
     vertical-align: top;
 }
-
 /* =========================================================================
    ESTILOS PARA TELAS MAIORES (COMPUTADOR)
    ========================================================================= */
