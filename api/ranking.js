@@ -24,7 +24,6 @@ module.exports = async (request, response) => {
 
     if (request.method === 'POST') {
       const { nome, pontuacao } = request.body;
-
       if (nome && pontuacao !== undefined) {
         await rankingCollection.insertOne({ nome, pontuacao });
         return response.status(200).json({ mensagem: 'Pontuação salva com sucesso!' });
