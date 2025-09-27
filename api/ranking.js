@@ -24,12 +24,14 @@ module.exports = async (request, response) => {
 
     if (request.method === 'POST') {
       const { nome, pontuacao } = request.body;
-
       if (nome && pontuacao !== undefined) {
         await rankingCollection.insertOne({ nome, pontuacao });
-
+        
         const top5 = await rankingCollection.find().sort({ pontuacao: -1 }).limit(5).toArray();
-        return response.status(200).json(top5);
+        return response.status(200).json({
+          mensagem: 'Pontuação salva com sucesso!',
+          ranking_atualizado: top5 
+        });
       }
       return response.status(400).json({ erro: 'Dados inválidos' });
     }
