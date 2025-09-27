@@ -1,8 +1,4 @@
-// =========================================================================
-// SCRIPT PRINCIPAL DO JOGO DE TABUADA
-// =========================================================================
-
-// --- SELEÇÃO DE ELEMENTOS DO HTML ---
+// SELEÇÃO DE ELEMENTOS DO HTML
 const tituloQuizEl = document.getElementById('titulo-quiz');
 const inicioContainerEl = document.getElementById('inicio-container');
 const perguntaEl = document.getElementById('pergunta');
@@ -26,14 +22,14 @@ const btnIniciar = document.getElementById('btn-iniciar');
 const labelTabuadaEl = document.getElementById('label-tabuada');
 const btnReiniciar = document.getElementById('btn-reiniciar');
 
-// Esconde os elementos do jogo que não devem estar visíveis no início.
+// Esconde elementos ao carregar a página
 gameDisplayContainerEl.classList.add('hidden');
 botoesRespostaContainerEl.classList.add('hidden');
 fimJogoMensagemEl.classList.add('hidden');
 rankContainerEl.classList.add('hidden');
 btnReiniciar.classList.add('hidden');
 
-// --- VARIÁVEIS DE ESTADO DO JOGO ---
+// VARIÁVEIS DE ESTADO DO JOGO
 let num1, num2, respostaCorreta;
 let pontuacao = 0;
 let respostasCorretasConteo = 0;
@@ -48,10 +44,7 @@ const historicoPerguntasAnteriores = [];
 const URL_API = 'https://tabuada-bay.vercel.app/api/ranking';
 
 
-// =========================================================================
-// FUNÇÕES DE GERENCIAMENTO DO RANKING ONLINE
-// =========================================================================
-
+// FUNÇÕES DO RANKING ONLINE
 function salvarPontuacaoOnline(novaPontuacao, nome) {
     fetch(URL_API, {
         method: 'POST',
@@ -112,10 +105,7 @@ function mostrarRank(rankData) {
 }
 
 
-// =========================================================================
 // FUNÇÕES DE LÓGICA DO JOGO
-// =========================================================================
-
 function handleBotaoRespostaClick(event) {
     if (event.target.classList.contains('btn-resposta')) {
         if (respostaAtual.length < 3) {
@@ -164,6 +154,7 @@ function iniciarTimer() {
         tempoRestante--;
         timerEl.textContent = `Tempo: ${tempoRestante}s`;
 
+        // Ativa a animação de piscar em vermelho nos últimos 10 segundos
         if (tempoRestante <= 10 && !timerEl.classList.contains('flash-red')) {
             timerEl.classList.add('flash-red');
         } else if (tempoRestante > 10 && timerEl.classList.contains('flash-red')) {
@@ -181,6 +172,7 @@ function gerarPergunta() {
     let perguntaAtual;
     let limiteHistorico;
 
+    // Define a tabuada com base na seleção (aleatório ou específica)
     let tabuadaParaPergunta;
     const temTodas = tabuadasSelecionadas.includes('aleatorio');
     
@@ -193,6 +185,7 @@ function gerarPergunta() {
         limiteHistorico = tabuadasSelecionadas.length * 4;
     }
 
+    // Gera uma nova pergunta que ainda não foi feita recentemente
     do {
         if (tabuadaParaPergunta === 'aleatorio') {
             num1 = Math.floor(Math.random() * 8) + 2;
@@ -218,7 +211,7 @@ function gerarPergunta() {
     feedbackEl.textContent = '';
     feedbackEl.className = '';
     
-    // REATIVA o botão e os outros elementos, caso estejam desativados
+    // Reativa o botão e os outros elementos, caso estejam desativados
     btnEnviar.disabled = false;
     botoesRespostaEl.forEach(btn => btn.disabled = false);
     btnLimpar.disabled = false;
@@ -235,7 +228,7 @@ function verificarResposta() {
     if (isNaN(respostaUsuario)) {
         feedbackEl.textContent = 'Por favor, digite um número.';
         feedbackEl.className = 'incorreto';
-        btnEnviar.disabled = false; // Reativa o botão se a resposta for inválida
+        btnEnviar.disabled = false;
         return;
     }
 
@@ -243,7 +236,7 @@ function verificarResposta() {
         feedbackEl.textContent = 'Correto!';
         feedbackEl.className = 'correto';
         
-        // Adiciona classes para as animações
+        // Adiciona classes para as animações de sucesso
         respostaDisplayEl.classList.add('flash-green');
         pontuacaoNumeroEl.classList.add('combo-score');
         
@@ -258,7 +251,7 @@ function verificarResposta() {
             respostaDisplayEl.removeEventListener('animationend', handler);
         }, { once: true });
 
-        // Lógica de redução de tempo e reinício do timer
+        // Lógica de redução de tempo a cada 5 pontos
         if (pontuacao > 0 && pontuacao % 5 === 0 && tempoInicial > 5) {
             tempoInicial -= 5;
             timerEl.classList.add('flash-red');
@@ -270,7 +263,7 @@ function verificarResposta() {
             }, { once: true });
         }
 
-        // Lógica de vitória
+        // Condição de vitória
         if (!tabuadasSelecionadas.includes('aleatorio') && pontuacao >= 60) {
             fimDeJogo(true);
             return;
@@ -290,11 +283,10 @@ function verificarResposta() {
         botoesRespostaEl.forEach(btn => btn.disabled = true);
         btnLimpar.disabled = true;
         
-        // Remove a classe de animação depois que a animação terminar
+        // Remove a classe de animação e chama o fim de jogo
         respostaDisplayEl.addEventListener('animationend', function handler() {
             respostaDisplayEl.classList.remove('flash-red');
             respostaDisplayEl.removeEventListener('animationend', handler);
-            // Chama a função de fim de jogo após o erro
             fimDeJogo(false);
         }, { once: true });
     }
@@ -331,10 +323,7 @@ function resetarJogo() {
 }
 
 
-// =========================================================================
 // LISTENERS DE EVENTOS
-// =========================================================================
-
 botoesRespostaContainerEl.addEventListener('click', handleBotaoRespostaClick);
 
 btnEnviar.addEventListener('click', verificarResposta);
@@ -343,6 +332,7 @@ btnLimpar.addEventListener('click', () => {
     respostaDisplayEl.textContent = '';
 });
 
+// Lógica de seleção de tabuadas (com limite de 4)
 botoesTabuada.forEach(btn => {
     btn.addEventListener('click', () => {
         const valorTabuada = btn.dataset.value;

@@ -1,11 +1,9 @@
-/* =========================================================================
-   ESTILOS GERAIS DO JOGO
-   ========================================================================= */
+/* ESTILOS GERAIS DO JOGO */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #333; /* Fundo escuro */
-    color: #eee; /* Texto claro */
+    background-color: #333;
+    color: #eee;
 }
 .main-container {
     display: flex;
@@ -17,7 +15,7 @@ body {
     box-sizing: border-box;
 }
 .quiz-container {
-    background-color: #555; /* Cor de fundo principal do quiz */
+    background-color: #555;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
@@ -77,7 +75,7 @@ h1 {
 }
 #resposta-display {
     background-color: #222;
-    color: #0f0; /* Cor do texto da resposta */
+    color: #0f0;
     padding: 10px;
     font-size: 1.8em;
     border: 2px solid #666;
@@ -85,7 +83,7 @@ h1 {
     min-height: 1.8em;
     text-align: right;
     box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace; /* Fonte estilo calculadora */
+    font-family: 'Courier New', Courier, monospace;
     width: 100%;
     margin-top: 10px;
     transition: border-color 0.2s ease;
@@ -133,7 +131,7 @@ h1 {
     transform: translateY(2px);
 }
 .btn-tabuada.selecionado {
-    background-color: #4CAF50; /* Cor do botão selecionado */
+    background-color: #4CAF50;
     color: white;
     box-shadow: 0 2px 0 #388e3c;
 }
@@ -195,7 +193,7 @@ h1 {
     transform: translateY(2px);
 }
 #btn-limpar {
-    background-color: #f44336; /* Cor do botão 'Limpar' */
+    background-color: #f44336;
     color: white;
     box-shadow: 0 2px 0 #d32f2f;
 }
@@ -207,7 +205,7 @@ h1 {
     transform: translateY(2px);
 }
 #btn-enviar {
-    background-color: #4CAF50; /* Cor do botão 'Enviar' */
+    background-color: #4CAF50;
     color: white;
     box-shadow: 0 2px 0 #388e3c;
 }
@@ -224,10 +222,10 @@ h1 {
     font-weight: bold;
 }
 #feedback.correto {
-    color: #4CAF50; /* Cor para feedback correto */
+    color: #4CAF50;
 }
 #feedback.incorreto {
-    color: #f44336; /* Cor para feedback incorreto */
+    color: #f44336;
 }
 #fim-jogo-mensagem {
     margin-top: 10px;
@@ -269,27 +267,28 @@ h1 {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* --- ESTILOS PARA OS TOP 3 DO RANKING --- */
+/* Estilos para o ranking */
 .rank-gold {
-    background-color: #FFD700 !important; /* Dourado */
-    color: #333 !important; /* Texto escuro para contraste */
+    background-color: #FFD700 !important;
+    color: #333 !important;
     box-shadow: 0 2px 5px rgba(255, 215, 0, 0.5);
 }
 .rank-silver {
-    background-color: #C0C0C0 !important; /* Prateado */
-    color: #333 !important; /* Texto escuro para contraste */
+    background-color: #C0C0C0 !important;
+    color: #333 !important;
     box-shadow: 0 2px 5px rgba(192, 192, 192, 0.5);
 }
 .rank-bronze {
-    background-color: #CD7F32 !important; /* Bronze */
-    color: #eee !important; /* Texto claro para contraste */
+    background-color: #CD7F32 !important;
+    color: #eee !important;
     box-shadow: 0 2px 5px rgba(205, 127, 50, 0.5);
 }
 
 .hidden {
-    display: none !important; /* Esconde elementos */
+    display: none !important;
 }
-/* --- ANIMAÇÕES --- */
+
+/* Animações */
 @keyframes flash-red {
     0% { color: #eee; transform: scale(1); }
     50% { color: red; transform: scale(1.1); }
@@ -305,13 +304,12 @@ h1 {
     animation: flash-red 0.5s ease-in-out;
 }
 .combo-score {
-    animation: flash-green-score 0.5s ease-in-out; /* Aplica a animação no placar */
+    animation: flash-green-score 0.5s ease-in-out;
     display: inline-block;
     vertical-align: top;
 }
-/* =========================================================================
-   ESTILOS PARA TELAS MAIORES (COMPUTADOR)
-   ========================================================================= */
+
+/* Estilos para telas maiores (computador) */
 @media (min-width: 768px) {
     .quiz-container {
         padding: 40px;
@@ -382,7 +380,7 @@ h1 {
         font-size: 2.8em;
     }
     #rank-list {
-        font-size: 1.8em; /* Tamanho do texto do rank em telas grandes */
+        font-size: 1.8em;
     }
     #rank-list li {
         margin: 8px 0;
