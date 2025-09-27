@@ -5,5 +5,15 @@
       "src": "api/ranking.js",
       "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/ranking",
+      "dest": "/api/ranking.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
   ]
 }
