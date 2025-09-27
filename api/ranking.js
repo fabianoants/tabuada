@@ -24,9 +24,12 @@ module.exports = async (request, response) => {
 
     if (request.method === 'POST') {
       const { nome, pontuacao } = request.body;
+
       if (nome && pontuacao !== undefined) {
         await rankingCollection.insertOne({ nome, pontuacao });
-        return response.status(200).json({ mensagem: 'Pontuação salva com sucesso!' });
+
+        const top5 = await rankingCollection.find().sort({ pontuacao: -1 }).limit(5).toArray();
+        return response.status(200).json(top5);
       }
       return response.status(400).json({ erro: 'Dados inválidos' });
     }
@@ -37,8 +40,9 @@ module.exports = async (request, response) => {
     }
 
     return response.status(405).json({ erro: 'Método não permitido' });
-  } catch (e) {
-    console.error(e);
-    return response.status(500).json({ erro: `Erro interno do servidor: ${e.message}` });
+    
+  } catch (error) {
+    console.error('Erro na API:', error);
+    return response.status(500).json({ erro: 'Erro interno do servidor' });
   }
 };
