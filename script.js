@@ -150,11 +150,11 @@ function iniciarTimer() {
     tempoRestante = tempoInicial;
     timerEl.textContent = `Tempo: ${tempoRestante}s`;
 
+    // Ativa a animação de piscar em vermelho nos últimos 10 segundos
     timerInterval = setInterval(() => {
         tempoRestante--;
         timerEl.textContent = `Tempo: ${tempoRestante}s`;
 
-        // Ativa a animação de piscar em vermelho nos últimos 10 segundos
         if (tempoRestante <= 10 && !timerEl.classList.contains('flash-red')) {
             timerEl.classList.add('flash-red');
         } else if (tempoRestante > 10 && timerEl.classList.contains('flash-red')) {
@@ -220,7 +220,7 @@ function gerarPergunta() {
 }
 
 function verificarResposta() {
-    // BUG FIX: Desativa o botão de envio para prevenir múltiplos cliques
+    // Desativa o botão de envio para prevenir múltiplos cliques
     btnEnviar.disabled = true;
 
     const respostaUsuario = parseInt(respostaAtual);
@@ -379,3 +379,39 @@ btnIniciar.addEventListener('click', comecarJogo);
 btnReiniciar.addEventListener('click', resetarJogo);
 
 carregarRankingOnline();
+
+// Lógica de entrada via teclado para telas grandes
+document.addEventListener('keydown', (event) => {
+    // Verifica se a tela é grande (maior ou igual a 768px)
+    if (!window.matchMedia('(min-width: 768px)').matches) {
+        return; // Sai da função se a tela for pequena
+    }
+
+    const key = event.key;
+
+    // Se o jogo não estiver no modo de pergunta, ignora o evento
+    if (gameDisplayContainerEl.classList.contains('hidden') || botoesRespostaContainerEl.classList.contains('hidden')) {
+        return;
+    }
+
+    // Permite digitar números de 0 a 9
+    if (key >= '0' && key <= '9') {
+        if (respostaAtual.length < 3) {
+            respostaAtual += key;
+            respostaDisplayEl.textContent = respostaAtual;
+        }
+    }
+    
+    // Aciona a verificação da resposta com a tecla Enter
+    if (key === 'Enter') {
+        event.preventDefault(); // Evita o comportamento padrão do Enter
+        verificarResposta();
+    }
+    
+    // Limpa a resposta com a tecla Backspace
+    if (key === 'Backspace') {
+        event.preventDefault(); // Evita o comportamento padrão do Backspace
+        respostaAtual = '';
+        respostaDisplayEl.textContent = '';
+    }
+});
